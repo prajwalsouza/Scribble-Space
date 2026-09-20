@@ -1,0 +1,4 @@
+vendor/** linguist-vendored -whitespace
+plugins/scribble-space/app/vendor/** linguist-vendored -whitespace
+plugins/scribble-space/scripts/mcp-server.mjs linguist-generated
+plugins/scribble-space/app/** linguist-generated
