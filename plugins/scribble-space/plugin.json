@@ -1,0 +1,30 @@
+{
+  "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
+  "name": "scribble-space",
+  "version": "0.1.0",
+  "description": "A local 3D sketch canvas with MCP image and scene handoffs.",
+  "author": {
+    "name": "Prajwal DSouza"
+  },
+  "license": "MIT",
+  "repository": "https://github.com/prajwalsouza/Scribble-Space",
+  "extensions": {
+    "com.openai": {
+      "interface": {
+        "displayName": "Scribble Space",
+        "shortDescription": "Use Scribble Space in Codex.",
+        "longDescription": "Start a local 3D canvas, let people sketch, then read their images, camera pose and design notes directly through MCP.",
+        "developerName": "Prajwal DSouza",
+        "category": "Productivity",
+        "capabilities": [
+          "Read",
+          "Write"
+        ],
+        "defaultPrompt": [
+          "Open a blank 3D sketch canvas.",
+          "Read my latest sketch and explain the requested changes."
+        ]
+      }
+    }
+  }
+}

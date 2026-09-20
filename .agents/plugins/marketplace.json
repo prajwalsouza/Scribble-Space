@@ -1,0 +1,20 @@
+{
+  "name": "scribble-space-plugins",
+  "interface": {
+    "displayName": "Scribble Space Plugins"
+  },
+  "plugins": [
+    {
+      "name": "scribble-space",
+      "source": {
+        "source": "local",
+        "path": "./plugins/scribble-space"
+      },
+      "policy": {
+        "installation": "AVAILABLE",
+        "authentication": "ON_INSTALL"
+      },
+      "category": "Productivity"
+    }
+  ]
+}
