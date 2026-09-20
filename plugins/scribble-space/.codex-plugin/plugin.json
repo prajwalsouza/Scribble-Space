@@ -1,6 +1,6 @@
 {
   "name": "scribble-space",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "A local 3D sketch canvas with MCP image and scene handoffs.",
   "author": {
     "name": "Prajwal DSouza"

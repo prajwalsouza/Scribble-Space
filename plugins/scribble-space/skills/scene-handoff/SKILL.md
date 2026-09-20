@@ -1,6 +1,6 @@
 ---
 name: scene-handoff
-description: Open a local Scribble Space 3D canvas through MCP, let a person sketch their idea, then read the saved images, camera pose and SM3DL scene metadata to guide edits.
+description: Open a local Scribble Space 3D canvas through MCP, let a person sketch their idea, then receive the explicitly sent images, camera pose and SM3DL scene metadata to guide edits.
 ---
 
 # Scribble Space scene handoff
@@ -11,9 +11,10 @@ Use this workflow for spatial feedback: load a scene, let the person fly to a vi
 
 1. Call `open_sketch` with a blank, room or courtyard template. Include a brief when the user already described the task. For a local model, pass `modelPath` only for an absolute GLB path the user selected or authorized; never search unrelated private files.
 2. Open the returned URL in the user-facing browser panel using an available browser-opening tool. In Codex desktop, prefer `open_in_codex` when available. If the host cannot open a panel, provide the clickable local URL. The HTML page owns the canvas; do not claim that this skill creates a native Codex UI surface.
-3. Tell the user: Fly to an angle, choose Sketch, then draw or drop reference images. Edits autosave to the local plugin data folder. Do not invent their drawing unless requested.
-4. Use `wait_for_sketch` with `after` set to `openedAt`, or `list_sketches` after the user says they are ready. One wait is at most 25 seconds. Avoid repeated polling when nothing has changed. An autosave may be an unfinished drawing, not approval to apply a change.
-5. Call `read_sketch` with the selected ID. Request both images when the clean view is useful. Inspect the actual image content along with camera, marks, workspace and note.
+3. Tell the user: Explore to an angle, choose Annotate, then draw with Pencil or drag a selection and type beside it. Press **Send to Codex** when ready (Ctrl/Command + Enter also sends). Drafts autosave independently. Do not invent their drawing unless requested.
+4. Keep the `session` returned by `open_sketch` and call `wait_for_submission(session, after: 0)`. It waits at most 25 seconds and returns both real PNG images plus the exact submitted JSON on explicit Send. Reissue bounded waits while the user is actively drawing, keeping the same cursor after timeouts. After receiving a submission, advance `after` to its returned `cursor`. Do not treat draft saves from `wait_for_sketch` as submissions.
+5. Inspect both PNG image blocks, region notes and camera metadata. Refer to numbered regions and stable mark IDs. `read_submission(session, id)` retrieves the same immutable handoff after later draft edits.
+6. MCP cannot independently restart an idle Codex task. While actively helping the user annotate, remain available using bounded waits and concise progress messages. If the task has ended, tell the user to resume it so queued sends can be collected. Never claim that a queued receipt proves a model has read or applied the changes.
 
 ## Interpret the handoff
 
