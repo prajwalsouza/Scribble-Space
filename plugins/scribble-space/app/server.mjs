@@ -20,7 +20,7 @@ export async function createEditorServer({dataDir=process.env.SCRIBBLE_DATA_DIR|
    const pathname=decodeURIComponent(new URL(req.url,'http://localhost').pathname),host=req.headers.host||'';
    if(!/^(localhost|127\.0\.0\.1|\[::1\])(:[0-9]+)?$/.test(host))throw new StoreError(403,'Use a loopback address.');
    if(!['GET','HEAD'].includes(req.method)&&(req.headers.origin&&req.headers.origin!==`http://${host}`||req.headers['sec-fetch-site']==='cross-site'))throw new StoreError(403,'Open this local editor directly to save.');
-   if(pathname==='/api/health'&&req.method==='GET')return json(res,{ok:true,app:'scribble-space',version:'0.2.0',mcp});
+   if(pathname==='/api/health'&&req.method==='GET')return json(res,{ok:true,app:'scribble-space',version:'0.2.1',mcp});
    if(pathname==='/api/submissions'&&req.method==='POST'&&mcp){
     if(req.headers['content-type']?.split(';')[0]!=='application/json')throw new StoreError(415,'Expected JSON.');
     return json(res,await submissions.submit(JSON.parse((await body(req,4000)).toString('utf8'))),201);
